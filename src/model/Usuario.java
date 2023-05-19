@@ -9,7 +9,7 @@ package model;
  * @author 182120069
  */
 public class Usuario {
-    private String idUsuario;
+    private int idUsuario;
     private String nomeUsuario;
     private String cpf;
     private String endereco;
@@ -19,7 +19,7 @@ public class Usuario {
         
     }
 
-    public Usuario(String idUsuario, String nomeUsuario, String cpf, String endereco, String telefone) {
+    public Usuario(int idUsuario, String nomeUsuario, String cpf, String endereco, String telefone) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.cpf = cpf;
@@ -27,11 +27,11 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 

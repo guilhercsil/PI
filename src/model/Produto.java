@@ -9,24 +9,24 @@ package model;
  * @author 182120069
  */
 public class Produto {
-    private String idProduto;
+    private int idProduto;
     private String nomeProd;
     private int preco;
 
     public Produto() {
     }
 
-    public Produto(String idProduto, String nomeProd, int preco) {
+    public Produto(int idProduto, String nomeProd, int preco) {
         this.idProduto = idProduto;
         this.nomeProd = nomeProd;
         this.preco = preco;
     }
 
-    public String getIdProduto() {
+    public int getIdProduto() {
         return idProduto;
     }
 
-    public void setIdProduto(String idProduto) {
+    public void setIdProduto(int idProduto) {
         this.idProduto = idProduto;
     }
 
