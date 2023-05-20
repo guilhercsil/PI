@@ -39,4 +39,10 @@ public class ProdutoServicos {
         ProdutoDAO pDAO = DAOFactory.getProdDAO();
         pDAO.deletarProdutoDAO(nome);
     }
+
+    public Object getProdutoByDoc(int preco) {
+        ProdutoDAO pDAO = DAOFactory.getProdDAO();
+        return pDAO.getProdutoByDoc(preco);
+        
+    }
 }

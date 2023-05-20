@@ -4,9 +4,13 @@
  */
 package pi;
 
+import controller.ContProd;
+import controller.ContUsuario;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import model.Produto;
 import model.Usuario;
+import servicos.ProdutoServicos;
 import servicos.ServicosFactory;
 import servicos.UsuarioServicos;
 import util.Validadores;
@@ -17,9 +21,11 @@ import view.JFPrincipal;
  * @author 182120069
  */
 public class PI {
-    public static  cadastrarUsuario = new CPessoa();
-    public static CCarro cadCarro = new CCarro();
-static Scanner leia = new Scanner(System.in);
+
+    public static ContUsuario cadUsuario = new ContUsuario();
+    public static ContProd cadProd = new ContProd();
+    static Scanner leia = new Scanner(System.in);
+
     /**
      * @param args the command line arguments
      */
@@ -28,6 +34,7 @@ static Scanner leia = new Scanner(System.in);
         JFPrincipal janela = new JFPrincipal();
         janela.setVisible(true);
     }
+
     public static int leiaNumInt() {
         Scanner leiaNum = new Scanner(System.in);
         try {
@@ -38,6 +45,7 @@ static Scanner leia = new Scanner(System.in);
         }
         return 99;
     }
+
     public static void menuP() {
         System.out.println("-- Menu Principal --");
         System.out.println("1 - Ger. Usuario");
@@ -45,6 +53,7 @@ static Scanner leia = new Scanner(System.in);
         System.out.println("0 - Sair");
         System.out.print("Digite aqui: ");
     }//fim menuP
+
     public static void subMenu(int opM) {
         String subM = null;
         if (opM == 1) {
@@ -61,7 +70,7 @@ static Scanner leia = new Scanner(System.in);
         System.out.println("0 - Voltar");
         System.out.print("Digite aqui: ");
     }// fim subMenu
-    
+
     private static void cadastrarUsuario() {
         System.out.println("-- Cadastro de Usuario --");
         UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
@@ -107,9 +116,17 @@ static Scanner leia = new Scanner(System.in);
         endereco = leia.nextLine();
         System.out.print("Informe o telefone: ");
         telefone = leia.nextLine();
-        idUsuario = cadastrarUsuario.geraID();
+        idUsuario = cadUsuario.geraID();
         Usuario u = new Usuario(idUsuario, nome, cpf, endereco, telefone);
         usuarioS.cadastrarUsuario(u);
-        System.out.println(u.getNomeUsuario()+ " cadastrado com sucesso!");
+        System.out.println(u.getNomeUsuario() + " cadastrado com sucesso!");
+    }
+
+    private static void cadastrarProduto() {
+        System.out.println("-- Cadastro de Produto --");
+        int idProduto;
+        String NomeProd;
+        int preco = 0;
+        boolean 
     }
 }

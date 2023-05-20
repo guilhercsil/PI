@@ -103,4 +103,8 @@ public class ProdutoDAO {
             System.out.println("Erro ao deletar Produto.\n"+ e.getMessage());
         }
     }
+
+    public Object getProdutoByDoc(int preco) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

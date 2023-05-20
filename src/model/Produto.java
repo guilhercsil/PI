@@ -12,14 +12,23 @@ public class Produto {
     private int idProduto;
     private String nomeProd;
     private int preco;
-
+    private int codBarra;
     public Produto() {
     }
 
-    public Produto(int idProduto, String nomeProd, int preco) {
+    public Produto(int idProduto, String nomeProd, int preco, int codBarra) {
         this.idProduto = idProduto;
         this.nomeProd = nomeProd;
         this.preco = preco;
+        this.codBarra = codBarra;
+    }
+
+    public int getCodBarra() {
+        return codBarra;
+    }
+
+    public void setCodBarra(int codBarra) {
+        this.codBarra = codBarra;
     }
 
     public int getIdProduto() {
@@ -48,8 +57,11 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto{" + "idProduto=" + idProduto + ", nomeProd=" + nomeProd + ", preco=" + preco + '}';
+        return "Produto{" + "idProduto=" + idProduto + ", nomeProd=" + nomeProd + ", preco=" + preco + ", codBarra=" + codBarra + '}';
     }
+
+    
+    
     
     
 }

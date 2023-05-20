@@ -4,13 +4,19 @@
  */
 package util;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import java.util.InputMismatchException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author 182120069
  */
 public class Validadores {
+
+    
+
     public static boolean isCPF(String CPF) {
         // considera-se erro CPF's formados por uma sequencia de numeros iguais
         if (CPF.equals("00000000000")
@@ -72,8 +78,19 @@ public class Validadores {
             return (false);
         }
     }
+
     public static String imprimeCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
     }
+
+     public static int codBarra (int codBarra){
+         String codBarra = "9788576356127";
+CodBarra codBarra = new CodBarra(codBarra);
+System.out.println("Número do código de barras: " + codBarra.getCodBarra());
+System.out.println("Código de barras é " + (codBarra.valido() ? "válido" : "inválido"));
+        return 0;
+     }
+             
+    
 }
