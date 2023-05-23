@@ -35,7 +35,7 @@ public class ProdutoServicos {
         pDAO.atualizarProdutoDAO(pVO);
     }
     
-    public void deletarCarro(String nome){
+    public void deletarProduto(String nome){
         ProdutoDAO pDAO = DAOFactory.getProdDAO();
         pDAO.deletarProdutoDAO(nome);
     }

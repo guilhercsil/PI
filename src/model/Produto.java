@@ -12,22 +12,22 @@ public class Produto {
     private int idProduto;
     private String nomeProd;
     private int preco;
-    private int codBarra;
+    private String codBarra;
     public Produto() {
     }
 
-    public Produto(int idProduto, String nomeProd, int preco, int codBarra) {
+    public Produto(int idProduto, String nomeProd, int preco, String codBarra) {
         this.idProduto = idProduto;
         this.nomeProd = nomeProd;
         this.preco = preco;
         this.codBarra = codBarra;
     }
 
-    public int getCodBarra() {
+    public String getCodBarra() {
         return codBarra;
     }
 
-    public void setCodBarra(int codBarra) {
+    public void setCodBarra(String codBarra) {
         this.codBarra = codBarra;
     }
 

@@ -15,6 +15,7 @@ import model.Produto;
 public class ContProd {
     ArrayList<Produto> produtos = new ArrayList<>();
     int idProduto = 1;
+    public int geraID;
     
     /**
      * Autoincrement idPessoa

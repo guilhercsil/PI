@@ -35,7 +35,7 @@ public class UsuarioServicos {
         uDAO.atualizarUsuarioDAO(uVO);
     }
     
-    public void deletarPessoa(String cpf){
+    public void deletarUsuario(String cpf){
         UsuarioDAO uDAO = DAOFactory.getUsuarioDAO();
         uDAO.deletarUsuarioDAO(cpf);
     }

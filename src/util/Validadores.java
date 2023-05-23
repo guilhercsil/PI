@@ -15,7 +15,8 @@ import java.util.regex.Pattern;
  */
 public class Validadores {
 
-    
+    private static String valida;
+    private static String[] cody;
 
     public static boolean isCPF(String CPF) {
         // considera-se erro CPF's formados por uma sequencia de numeros iguais
@@ -84,13 +85,40 @@ public class Validadores {
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
     }
 
-     public static int codBarra (int codBarra){
-         String codBarra = "9788576356127";
-CodBarra codBarra = new CodBarra(codBarra);
-System.out.println("Número do código de barras: " + codBarra.getCodBarra());
-System.out.println("Código de barras é " + (codBarra.valido() ? "válido" : "inválido"));
-        return 0;
-     }
-             
-    
+    public static boolean validarCodBarra(String codBarra) {
+        int i = 0;
+        double code[] = new double[13];
+        double total = 0;
+        for (i = 0; i < 12; i++) {
+            codBarra += cody[i];
+
+            code[i] = Integer.parseInt(cody[i]);
+
+            if (i % 2 == 0) {
+                code[i] *= 3;
+            }
+
+            total += code[i];
+        }
+
+        double t = total;
+        total /= 10;
+        int to = (int) total;
+
+        to += 1;
+        to *= 10;
+        to -= t;
+
+        if (to == code[13]) {
+            valida = "Codigo Correto";
+        } else {
+            valida = "Codigo Incorreto";
+        }
+
+        System.out.println("Resultado: " + to);
+        return false;
+    }
+
+
+
 }
