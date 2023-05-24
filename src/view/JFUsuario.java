@@ -45,6 +45,8 @@ public class JFUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 153, 102));
+
         jLabel1.setText("Nome:*");
 
         jLabel2.setText("CPF:*");
@@ -53,7 +55,11 @@ public class JFUsuario extends javax.swing.JFrame {
 
         jLabel4.setText("Endereço:*");
 
-        jftfTelefone.setText("(  )     -");
+        try {
+            jftfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jbDeletar.setText("Deletar");
 
