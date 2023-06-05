@@ -4,6 +4,12 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Usuario;
+import servicos.ServicosFactory;
+import servicos.UsuarioServicos;
+
 /**
  *
  * @author 182120069
@@ -15,6 +21,44 @@ public class JFUsuario extends javax.swing.JFrame {
      */
     public JFUsuario() {
         initComponents();
+
+    }
+
+    public void addRowToTable() {
+        DefaultTableModel model = (DefaultTableModel) jtUsuarios.getModel();
+        model.getDataVector().removeAllElements();//remove todas as linhas
+        model.fireTableDataChanged();
+        Object rowData[] = new Object[4];
+        UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
+        for (Usuario usuario : usuarioS.getUsuarios()) {
+            rowData[0] = usuario.getCpf();
+            rowData[1] = usuario.getNomeUsuario();
+            rowData[2] = usuario.getTelefone();
+            rowData[3] = usuario.getEndereco();
+            model.addRow(rowData);
+
+        }
+    }
+    public boolean validaImputs() {
+        if (jtfCpf.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher CPF!");
+            jtfCpf.requestFocus();
+            return false;
+        } else if (jtfNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher Nome!");
+            jtfNome.requestFocus();
+            return false;
+        } else if (jtfEndereco.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher Endereço!");
+            jtfEndereco.requestFocus();
+            return false;
+            
+        } else if (jftfTelefone.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher Telefone!");
+            jftfTelefone.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -34,7 +78,7 @@ public class JFUsuario extends javax.swing.JFrame {
         jtfNome = new javax.swing.JTextField();
         jtfCpf = new javax.swing.JTextField();
         jftfTelefone = new javax.swing.JFormattedTextField();
-        jtfEndereço = new javax.swing.JTextField();
+        jtfEndereco = new javax.swing.JTextField();
         jbDeletar = new javax.swing.JButton();
         jbEditar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
@@ -54,6 +98,12 @@ public class JFUsuario extends javax.swing.JFrame {
         jLabel3.setText("Telefone:*");
 
         jLabel4.setText("Endereço:*");
+
+        jtfNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfNomeActionPerformed(evt);
+            }
+        });
 
         try {
             jftfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -110,7 +160,7 @@ public class JFUsuario extends javax.swing.JFrame {
                             .addComponent(jtfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(jtfCpf)
                             .addComponent(jftfTelefone)
-                            .addComponent(jtfEndereço)))
+                            .addComponent(jtfEndereco)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbDeletar)
@@ -145,7 +195,7 @@ public class JFUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtfEndereço, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbDeletar)
@@ -171,6 +221,10 @@ public class JFUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,7 +276,7 @@ public class JFUsuario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jftfTelefone;
     private javax.swing.JTable jtUsuarios;
     private javax.swing.JTextField jtfCpf;
-    private javax.swing.JTextField jtfEndereço;
+    private javax.swing.JTextField jtfEndereco;
     private javax.swing.JTextField jtfNome;
     // End of variables declaration//GEN-END:variables
 }

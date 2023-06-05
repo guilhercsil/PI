@@ -58,7 +58,7 @@
                               <Component id="jtfNome" pref="100" max="32767" attributes="0"/>
                               <Component id="jtfCpf" max="32767" attributes="0"/>
                               <Component id="jftfTelefone" max="32767" attributes="0"/>
-                              <Component id="jtfEndereço" max="32767" attributes="0"/>
+                              <Component id="jtfEndereco" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -103,7 +103,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfEndereço" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -142,6 +142,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfNome">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfNomeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfCpf">
         </Component>
@@ -152,7 +155,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfEndere&#xe7;o">
+        <Component class="javax.swing.JTextField" name="jtfEndereco">
         </Component>
         <Component class="javax.swing.JButton" name="jbDeletar">
           <Properties>
