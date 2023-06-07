@@ -39,6 +39,7 @@ public class JFUsuario extends javax.swing.JFrame {
 
         }
     }
+
     public boolean validaImputs() {
         if (jtfCpf.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencher CPF!");
@@ -52,7 +53,7 @@ public class JFUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Preencher Endereço!");
             jtfEndereco.requestFocus();
             return false;
-            
+
         } else if (jftfTelefone.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencher Telefone!");
             jftfTelefone.requestFocus();
@@ -105,6 +106,17 @@ public class JFUsuario extends javax.swing.JFrame {
             }
         });
 
+        jtfCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfCpfFocusLost(evt);
+            }
+        });
+        jtfCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfCpfKeyTyped(evt);
+            }
+        });
+
         try {
             jftfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
@@ -112,14 +124,39 @@ public class JFUsuario extends javax.swing.JFrame {
         }
 
         jbDeletar.setText("Deletar");
+        jbDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarActionPerformed(evt);
+            }
+        });
 
         jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
 
         jbLimpar.setText("Limpar");
+        jbLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimparActionPerformed(evt);
+            }
+        });
 
         jbFechar.setText("Fechar");
+        jbFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFecharActionPerformed(evt);
+            }
+        });
 
         jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,6 +175,11 @@ public class JFUsuario extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jtUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtUsuariosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtUsuarios);
@@ -225,6 +267,112 @@ public class JFUsuario extends javax.swing.JFrame {
     private void jtfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNomeActionPerformed
+
+    private void jtUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtUsuariosMouseClicked
+        // TODO add your handling code here:
+        jbDeletar.setVisible(true);
+        jbEditar.setEnabled(true);
+    }//GEN-LAST:event_jtUsuariosMouseClicked
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        // TODO add your handling code here:
+        jbDeletar.setVisible(false);
+        jbSalvar.setText("Confirmar");
+        jbLimpar.setText("Cancelar");
+        jtfCpf.setEnabled(false);
+
+        int linha = jtUsuarios.getSelectedRow();
+        String cpf = (String) jtUsuarios.getValueAt(linha, 0);
+        UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
+        Usuario u = usuarioS.getUsuarioByDoc(cpf);
+        jtfNome.setText(u.getNomeUsuario());
+        jtfCpf.setText(u.getCpf());
+        jtfEndereco.setText(u.getEndereco());
+        jftfTelefone.setText(u.getTelefone());
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbFecharActionPerformed
+
+    private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
+        // TODO add your handling code here:
+        if (jbLimpar.getText().equals("Limpar")) {
+            limparCampos();
+        } else {
+            jbEditar.setEnabled(false);
+            jbLimpar.setText("Limpar");
+            limparCampos();
+        }
+
+    }//GEN-LAST:event_jbLimparActionPerformed
+
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+        // TODO add your handling code here:
+        if (validaImputs()) {
+            
+            String cpf = jtfCpf.getText();
+            String nome = jtfNome.getText().toUpperCase();
+            String telefone = jftfTelefone.getText();
+            String endereco = jtfEndereco.getText().toUpperCase();
+            
+            UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
+            Usuario u = new Usuario(WIDTH, nome, cpf, endereco, telefone);
+            if (jbSalvar.getText().equals("Salvar")) {
+                
+                usuarioS.cadastrarUsuario(u);
+                
+            } else {
+                usuarioS.atualizarUsuario(u);
+            }
+            addRowToTable();
+            limparCampos();
+        }
+    }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
+        // TODO add your handling code here:
+        int linha = jtUsuarios.getSelectedRow();
+        String cpf = (String) jtUsuarios.getValueAt(linha, 0);
+        UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
+        String nome = usuarioS.getUsuarioByDoc(cpf).getNomeUsuario();
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[1]);
+        if (resp == 0 ) {
+            usuarioS.deletarUsuario(cpf);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Pessoa deletada com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(this, "Ok, delete cancelado pelo usuário!");
+        }
+        jbLimpar.doClick();
+    }//GEN-LAST:event_jbDeletarActionPerformed
+
+    private void jtfCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCpfFocusLost
+        // TODO add your handling code here:
+        UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
+        if (usuarioS.getUsuarioByDoc(jtfCpf.getText()).getCpf() != null) {
+            JOptionPane.showMessageDialog(this, "CPF já cadastrado!");
+            jtfCpf.setText("");
+            jtfCpf.requestFocus();
+        }
+    }//GEN-LAST:event_jtfCpfFocusLost
+
+    private void jtfCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCpfKeyTyped
+        // TODO add your handling code here:
+        String num = "0123456789";
+        if (!num.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+            
+        }
+    }//GEN-LAST:event_jtfCpfKeyTyped
+    public void limparCampos() {
+        jtfNome.setText("");
+        jtfCpf.setText("");
+        jtfEndereco.setText("");
+        jftfTelefone.setText("");
+    }
 
     /**
      * @param args the command line arguments
