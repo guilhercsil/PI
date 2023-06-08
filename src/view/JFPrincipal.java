@@ -37,9 +37,19 @@ public class JFPrincipal extends javax.swing.JFrame {
         JMarquivo.setText("Arquivo");
 
         JMusuario.setText("Usuario");
+        JMusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMusuarioActionPerformed(evt);
+            }
+        });
         JMarquivo.add(JMusuario);
 
         JMproduto.setText("Produto");
+        JMproduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMprodutoActionPerformed(evt);
+            }
+        });
         JMarquivo.add(JMproduto);
 
         jMenuBar1.add(JMarquivo);
@@ -62,6 +72,18 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JMusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMusuarioActionPerformed
+        // TODO add your handling code here:
+        JFUsuario usuario = new JFUsuario();
+        usuario.setVisible(true);
+    }//GEN-LAST:event_JMusuarioActionPerformed
+
+    private void JMprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMprodutoActionPerformed
+        // TODO add your handling code here:
+        JFProduto produto = new JFProduto();
+        produto.setVisible(true);
+    }//GEN-LAST:event_JMprodutoActionPerformed
 
     /**
      * @param args the command line arguments

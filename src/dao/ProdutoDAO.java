@@ -23,11 +23,12 @@ public class ProdutoDAO {
             //buscar conexao com BD
             Connection con = Conexao.getConexao();
             //criar script sql de insert
-            String sql = "insert into produto values(null, ?,?)";
+            String sql = "insert into produto values(?,?,?,null)";
             //criar espaço para executar o script
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, pVO.getNomeProd());
-            pst.setInt(2, pVO.getPreco());
+            pst.setString(1, pVO.getCodBarra());
+            pst.setString(2, pVO.getNomeProd());
+            pst.setInt(3, pVO.getPreco());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar Produto.\n" + e.getMessage());
@@ -45,29 +46,31 @@ public class ProdutoDAO {
                 Produto p = new Produto();
                 //lado do java |x| lado do banco
                 p.setIdProduto(rs.getInt("idProduto"));
+                p.setCodBarra(rs.getString("codBarra"));
                 p.setNomeProd(rs.getString("nome"));
                 p.setPreco(rs.getInt("preco"));
 
                 produto.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao listar pessoa.\n" + e.getMessage());
+            System.out.println("Erro ao listar produto.\n" + e.getMessage());
         }
         return produto;
     }
-    public Produto getProdutoByDoc(String cpf){
+    public Produto getProdutoByDoc(String codBarra){
         Produto p = new Produto();
         
         try {
             Connection con = Conexao.getConexao();
             String sql = "select * from produto where NomeProd = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, cpf);
+            pst.setString(1, codBarra);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                
                 //lado do java |x| lado do banco
                 p.setIdProduto(rs.getInt("idProduto"));
+                p.setCodBarra(rs.getString("codBarra"));
                 p.setNomeProd(rs.getString("nome"));
                 p.setPreco(rs.getInt("preco"));
                
@@ -82,22 +85,23 @@ public class ProdutoDAO {
     public void atualizarProdutoDAO(Produto pVO){
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update produto set nome = ?, preco = ?";
+            String sql = "update produto set codBarra = ?, nome = ?, preco = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1,pVO.getNomeProd());
-            pst.setInt(2,pVO.getPreco());
+            pst.setString(1,pVO.getCodBarra());
+            pst.setString(2,pVO.getNomeProd());
+            pst.setInt(3,pVO.getPreco());
             
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar Produto.\n"+e.getMessage());
         }
     }
-    public void deletarProdutoDAO(String nome){
+    public void deletarProdutoDAO(String codBarra){
         try {
             Connection con = Conexao.getConexao();
-            String sql = "delete from produto where nome = ?";
+            String sql = "delete from produto where codBarra = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1,nome);
+            pst.setString(1,codBarra);
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao deletar Produto.\n"+ e.getMessage());

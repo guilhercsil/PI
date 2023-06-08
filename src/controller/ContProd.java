@@ -55,17 +55,17 @@ public class ContProd {
         return p;
     }
     
-    public void mockCarros(){
+    public void mockProdutos(){
         Produto p1 = new Produto();
         p1.setIdProduto(geraID());
         p1.setNomeProd("1L suco naturale");
         p1.setPreco(10);
         addProduto(p1);
         Produto p2 = new Produto();
-        p1.setIdProduto(geraID());
-        p1.setNomeProd("500ml suco naturale");
-        p1.setPreco(10);
-        addProduto(p1);
+        p2.setIdProduto(geraID());
+        p2.setNomeProd("500ml suco naturale");
+        p2.setPreco(10);
+        addProduto(p2);
         
         
         addProduto(p2);

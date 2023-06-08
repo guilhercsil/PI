@@ -21,12 +21,12 @@ public class UsuarioDAO {
     public void cadastrarUsuarioDAO(Usuario uVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "insert into usuarios values (null,?,?,?,?)";
+            String sql = "insert into usuario values (null,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, uVO.getNomeUsuario());
             pst.setString(2, uVO.getCpf());
-            pst.setString(3, uVO.getEndereco());
-            pst.setString(4, uVO.getTelefone());
+            pst.setString(4, uVO.getEndereco());
+            pst.setString(3, uVO.getTelefone());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar Usuario.\n" + e.getMessage());
@@ -37,7 +37,7 @@ public class UsuarioDAO {
         ArrayList<Usuario> usuario = new ArrayList<>();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from usuarios";
+            String sql = "select * from usuario";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){

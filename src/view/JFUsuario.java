@@ -21,7 +21,7 @@ public class JFUsuario extends javax.swing.JFrame {
      */
     public JFUsuario() {
         initComponents();
-
+        addRowToTable();
     }
 
     public void addRowToTable() {
@@ -311,18 +311,18 @@ public class JFUsuario extends javax.swing.JFrame {
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
         if (validaImputs()) {
-            
+
             String cpf = jtfCpf.getText();
             String nome = jtfNome.getText().toUpperCase();
             String telefone = jftfTelefone.getText();
             String endereco = jtfEndereco.getText().toUpperCase();
-            
+
             UsuarioServicos usuarioS = ServicosFactory.getUsuarioServicos();
             Usuario u = new Usuario(WIDTH, nome, cpf, endereco, telefone);
             if (jbSalvar.getText().equals("Salvar")) {
-                
+
                 usuarioS.cadastrarUsuario(u);
-                
+
             } else {
                 usuarioS.atualizarUsuario(u);
             }
@@ -339,11 +339,11 @@ public class JFUsuario extends javax.swing.JFrame {
         String nome = usuarioS.getUsuarioByDoc(cpf).getNomeUsuario();
         Object[] btnMSG = {"Sim", "Não"};
         int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[1]);
-        if (resp == 0 ) {
+        if (resp == 0) {
             usuarioS.deletarUsuario(cpf);
             addRowToTable();
             JOptionPane.showMessageDialog(this, "Pessoa deletada com sucesso!");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Ok, delete cancelado pelo usuário!");
         }
         jbLimpar.doClick();
@@ -364,7 +364,7 @@ public class JFUsuario extends javax.swing.JFrame {
         String num = "0123456789";
         if (!num.contains(evt.getKeyChar() + "")) {
             evt.consume();
-            
+
         }
     }//GEN-LAST:event_jtfCpfKeyTyped
     public void limparCampos() {

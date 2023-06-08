@@ -4,6 +4,12 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Produto;
+import servicos.ProdutoServicos;
+import servicos.ServicosFactory;
+
 /**
  *
  * @author 182120069
@@ -15,8 +21,40 @@ public class JFProduto extends javax.swing.JFrame {
      */
     public JFProduto() {
         initComponents();
+        addRowToTable();
     }
-
+        public void addRowToTable() {
+        DefaultTableModel model = (DefaultTableModel) jtProduto.getModel();
+        model.getDataVector().removeAllElements();//remove todas as linhas
+        model.fireTableDataChanged();
+        Object rowData[] = new Object[4];
+        ProdutoServicos produtoS = ServicosFactory.getProdutoServicos();
+        for (Produto produto : produtoS.getProduto()) {
+            rowData[0] = produto.getCodBarra();
+            rowData[1] = produto.getNomeProd();
+            rowData[2] = produto.getPreco();
+            
+            model.addRow(rowData);
+            
+        }
+    }
+        public boolean validaImputs() {
+        if (jtfCodBarra.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher Cod. Barra!");
+            jtfCodBarra.requestFocus();
+            return false;
+        } else if (jtfNomeProd.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher Nome!");
+            jtfNomeProd.requestFocus();
+            return false;
+        } else if (jtfPreco.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher Preço!");
+            jtfPreco.requestFocus();
+            return false;
+            
+        }
+        return true;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +72,7 @@ public class JFProduto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfCodBarra = new javax.swing.JTextField();
         jtfNomeProd = new javax.swing.JTextField();
-        jtfPreço = new javax.swing.JTextField();
+        jtfPreco = new javax.swing.JTextField();
         jbDeletar = new javax.swing.JButton();
         jbEditar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
@@ -43,8 +81,8 @@ public class JFProduto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtProduto = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jrbConsumivel = new javax.swing.JRadioButton();
+        jrbAvaria = new javax.swing.JRadioButton();
 
         jLabel1.setText("jLabel1");
 
@@ -58,15 +96,41 @@ public class JFProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Preço:*");
 
+        jtfCodBarra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfCodBarraFocusLost(evt);
+            }
+        });
+
         jbDeletar.setText("Deletar");
+        jbDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarActionPerformed(evt);
+            }
+        });
 
         jbEditar.setText("Editar");
 
         jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
 
         jbLimpar.setText("Limpar");
+        jbLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimparActionPerformed(evt);
+            }
+        });
 
         jbFechar.setText("Fechar");
+        jbFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFecharActionPerformed(evt);
+            }
+        });
 
         jtProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,11 +155,21 @@ public class JFProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Condição*");
 
-        bgCondicao.add(jRadioButton1);
-        jRadioButton1.setText("Consumível");
+        bgCondicao.add(jrbConsumivel);
+        jrbConsumivel.setText("Consumível");
+        jrbConsumivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbConsumivelActionPerformed(evt);
+            }
+        });
 
-        bgCondicao.add(jRadioButton2);
-        jRadioButton2.setText("Avaria");
+        bgCondicao.add(jrbAvaria);
+        jrbAvaria.setText("Avaria");
+        jrbAvaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbAvariaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,15 +185,15 @@ public class JFProduto extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfPreço, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jtfPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(jtfNomeProd)
                             .addComponent(jtfCodBarra))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(jrbConsumivel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jrbAvaria)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -144,8 +218,8 @@ public class JFProduto extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jtfCodBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jrbConsumivel)
+                    .addComponent(jrbAvaria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -153,7 +227,7 @@ public class JFProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtfPreço, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbDeletar)
@@ -179,6 +253,93 @@ public class JFProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbFecharActionPerformed
+
+    private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
+        // TODO add your handling code here:
+        if (jbLimpar.getText().equals("Limpar")) {
+            limparCampos();
+        } else {
+            jbEditar.setEnabled(false);
+            jbLimpar.setText("Limpar");
+            jbSalvar.setText("Salvar");
+            limparCampos();
+        }
+    }//GEN-LAST:event_jbLimparActionPerformed
+
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+        // TODO add your handling code here:
+        if (validaImputs()) {
+
+            String codBarra = jtfCodBarra.getText();
+            String nomeProd = jtfNomeProd.getText().toUpperCase();
+            String preço = jtfPreco.getText();
+
+            ProdutoServicos produtoS = ServicosFactory.getProdutoServicos();
+            Produto p = new Produto(WIDTH, nomeProd, ERROR, codBarra);
+            if (jbSalvar.getText().equals("Salvar")) {
+
+                produtoS.cadastrarProduto(p);
+
+            } else {
+                produtoS.atualizarProduto(p);
+            }
+            addRowToTable();
+            
+            
+            
+        }
+    }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
+        // TODO add your handling code here:
+        int linha = jtProduto.getSelectedRow();
+        String codBarra = (String) jtProduto.getValueAt(linha, 0);
+        ProdutoServicos produtoS = ServicosFactory.getProdutoServicos();
+        String nomeProd = produtoS.getProdutoByDoc(codBarra).getNomeProd();
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nomeProd, ".: Deletar :.", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[1]);
+        if (resp == 0) {
+            produtoS.deletarProduto(codBarra);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Produto deletado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ok, delete cancelado pelo usuário!");
+        }
+        jbLimpar.doClick();
+    }//GEN-LAST:event_jbDeletarActionPerformed
+
+    private void jtfCodBarraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodBarraFocusLost
+        // TODO add your handling code here:
+        ProdutoServicos produtoS = ServicosFactory.getProdutoServicos();
+        if (produtoS.getProdutoByDoc(jtfCodBarra.getText()).getCodBarra() != null) {
+            JOptionPane.showMessageDialog(this, "Cod. Barra já cadastrado!");
+            jtfCodBarra.setText("");
+            jtfCodBarra.requestFocus();
+        }
+    }//GEN-LAST:event_jtfCodBarraFocusLost
+
+    private void jrbConsumivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbConsumivelActionPerformed
+        // TODO add your handling code here:
+        bgCondicao2 = evt.getActionCommand();
+    }//GEN-LAST:event_jrbConsumivelActionPerformed
+
+    private void jrbAvariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAvariaActionPerformed
+        // TODO add your handling code here:
+        bgCondicao2 = evt.getActionCommand();
+    }//GEN-LAST:event_jrbAvariaActionPerformed
+
+    private static String bgCondicao2;
+
+    public void limparCampos() {
+        jtfCodBarra.setText("");
+        jtfNomeProd.setText("");
+        jtfPreco.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -223,17 +384,19 @@ public class JFProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDeletar;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbFechar;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JRadioButton jrbAvaria;
+    private javax.swing.JRadioButton jrbConsumivel;
     private javax.swing.JTable jtProduto;
     private javax.swing.JTextField jtfCodBarra;
     private javax.swing.JTextField jtfNomeProd;
-    private javax.swing.JTextField jtfPreço;
+    private javax.swing.JTextField jtfPreco;
     // End of variables declaration//GEN-END:variables
+
+    
 }
